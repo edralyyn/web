@@ -1,6 +1,8 @@
+// Login.js
+
 import React, { useState } from 'react';
 
-const Login = () => {
+const Login = ({ onLogin }) => { // Receive onLogin function as prop
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -18,7 +20,7 @@ const Login = () => {
             console.log('Response from server:', data);
             if (response.ok) {
                 console.log(data.message);
-                // Redirect or set authentication state
+                onLogin(username, password); // Call onLogin function with username and password
             } else {
                 setError(data.error);
             }
