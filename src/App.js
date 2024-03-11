@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Login from './components/Login';
 import Homepage from './components/Homepage';
+import Navbar from './components/Navbar'; // Import Navbar component
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -15,11 +16,20 @@ function App() {
     console.log('User authenticated:', isAuthenticated);
   }
 
+  // Function to handle logout
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    console.log('User logged out');
+  }
+
   console.log('Rendering App. isAuthenticated:', isAuthenticated);
 
   return (
     <div className="App">
+      {/* Pass handleLogin to Login component */}
       {isAuthenticated ? <Homepage /> : <Login onLogin={handleLogin} />}
+      {/* Pass handleLogout to Navbar component */}
+      {isAuthenticated && <Navbar onLogout={handleLogout} />}
     </div>
   );
 }

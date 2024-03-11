@@ -56,7 +56,7 @@ function FloatingContainer() {
   return (
     <div ref={containerRef} className="floating-container rounded-2">
       {/* Your content for the floating container */}
-      <p>This is the content of the floating container.</p>
+      <p>Where topology will be.</p>
     </div>
   );
 }

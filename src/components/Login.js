@@ -31,7 +31,7 @@ const Login = ({ onLogin }) => { // Receive onLogin function as prop
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="d-flex justify-content-center align-items-center vh-100 bg-dark">
             <div className="card p-4">
                 <h2 className="text-center mb-4">Login</h2>
                 {error && <div className="alert alert-danger" role="alert">{error}</div>}
