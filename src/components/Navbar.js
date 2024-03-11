@@ -29,7 +29,6 @@ const Navbar = () => {
                     <Offcanvas.Title>Offcanvas</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    {/* Add your content here */}
                     This is the content of the Offcanvas.
                 </Offcanvas.Body>
             </Offcanvas>
