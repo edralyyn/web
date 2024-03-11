@@ -6,7 +6,7 @@ import FloatingContainer from './Floating';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Model(props) {
-  const { scene } = useGLTF("/bmw.glb");
+  const { scene } = useGLTF("/pcparts.glb");
   return <primitive object={scene} {...props} />
 }
 
