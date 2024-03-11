@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { BiLogOut } from 'react-icons/bi';
 import { Offcanvas } from 'react-bootstrap';
 import Forecasting from './Forecasting';
+import handleCollect from './Collect';
 
 const Navbar = ({ onLogout }) => {
     const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -24,7 +25,7 @@ const Navbar = ({ onLogout }) => {
                         <button type="button" className="btn btn-dark btn-sm m-2 mt-0 mb-0" onClick={handleShowOffcanvas}>
                             <span className="navbar-toggler-icon"></span>
                         </button>
-                        <button type="button" className="btn btn-primary btn-md ps-5 pe-5 mt-0 mb-0">Collect</button>
+                        <button type="button" className="btn btn-primary btn-md ps-5 pe-5 mt-0 mb-0" onClick={handleCollect}>Collect</button>
                     </div>
                     <button type="button" className="btn btn-light m-2 mt-0 mb-0" onClick={onLogout}>
                         <BiLogOut />
