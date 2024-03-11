@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-const Login = ({ onLogin }) => { // Receive onLogin function as prop
+const Login = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -20,7 +20,7 @@ const Login = ({ onLogin }) => { // Receive onLogin function as prop
             console.log('Response from server:', data);
             if (response.ok) {
                 console.log(data.message);
-                onLogin(username, password); // Call onLogin function with username and password
+                onLogin(username, password);
             } else {
                 setError(data.error);
             }
