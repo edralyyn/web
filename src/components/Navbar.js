@@ -1,5 +1,3 @@
-//Navbar.js
-
 import React, { useState } from 'react';
 import { BiLogOut } from 'react-icons/bi';
 import { Offcanvas } from 'react-bootstrap';
@@ -8,12 +6,10 @@ import handleCollect from './Collect';
 
 const Navbar = ({ onLogout }) => {
     const [showOffcanvas, setShowOffcanvas] = useState(false);
-    const [forecastList, setForecastList] = useState([]);
 
     const handleCloseOffcanvas = () => {
         setShowOffcanvas(false);
     };
-    
 
     const handleShowOffcanvas = () => setShowOffcanvas(true);
 
@@ -38,17 +34,7 @@ const Navbar = ({ onLogout }) => {
                     <Offcanvas.Title>Forecasting</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body className="text-start">
-                    <Forecasting forecastList={forecastList} setForecastList={setForecastList} />
-                    {forecastList.length > 0 && (
-                        <div className="mt-3 border bg-white rounded-2 p-2" style={{ color: 'black' }}>
-                            <h5>Forecast Values:</h5>
-                            <ul>
-                                {forecastList.map((value, index) => (
-                                    <li key={index}>{value}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
+                    <Forecasting/>
                 </Offcanvas.Body>
             </Offcanvas>
         </>
