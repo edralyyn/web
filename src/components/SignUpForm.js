@@ -1,15 +1,41 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Import Axios for making HTTP requests
 
 const SignUpForm = ({ setShowSignUp }) => { // Ensure setShowSignUp is received as a prop
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add your signup logic here
-        console.log('Signing up...');
+        
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            console.log('Passwords do not match');
+            return;
+        }
+    
+        try {
+            // Send a POST request to the Flask backend to create a new account
+            const response = await axios.post('http://localhost:5000/signup', {
+                username: username,
+                password: password
+            });
+    
+            // Handle success response
+            console.log(response.data.message); // Log success message
+    
+            // Optionally, you can redirect the user to the login page or display a success message
+        } catch (error) {
+            // Handle error response
+            if (error.response && error.response.data && error.response.data.error) {
+                console.error('Error signing up:', error.response.data.error); // Log error message
+            } else {
+                console.error('An unexpected error occurred:', error); // Log unexpected error
+            }
+        }
     }
+    
 
     return (
         <div className='d-flex justify-content-center align-items-center vh-100 bg-dark'>
