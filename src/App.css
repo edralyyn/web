@@ -46,7 +46,7 @@
   background-color: white; /* or any other color */
   padding: 20px;
   border: 1px solid #ccc;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+  box-shadow: 0px 0px 10px rgba(66, 58, 58, 0.623); /* Add a shadow for depth */
   max-width: calc(33.333% - 40px); /* One-third of the screen minus padding */
   width: 90%; /* Initial width */
 }
@@ -62,6 +62,16 @@
     max-width: calc(800px / 3); /* One-third of 800px */
   }
 }
+
+.draggable {
+  position: absolute;
+  cursor: grab;
+}
+
+.draggable:active {
+  cursor: grabbing;
+}
+
 
 
 
