@@ -2,8 +2,7 @@
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from samplecollect import SampleCollect
-from sampleforecast import forecast_input
+import sqlite3
 
 app = Flask(__name__)
 CORS(app)
@@ -18,6 +17,33 @@ def login():
         return jsonify({'message': 'Login successful'}), 200
     else:
         return jsonify({'error': 'Invalid username or password'}), 401
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    try:
+        data = request.json
+        username = data.get('username')
+        password = data.get('password')
+
+        # Connect to the SQLite database
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+
+        # Check if the username already exists
+        cursor.execute("SELECT * FROM users WHERE username=?", (username,))
+        existing_user = cursor.fetchone()
+        if existing_user:
+            return jsonify({'error': 'Username already exists. Please choose a different username.'}), 400
+
+        # Insert the new account into the database
+        cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
+        conn.commit()
+        conn.close()
+
+        return jsonify({'message': 'Account created successfully.'}), 201
+
+    except sqlite3.Error as e:
+        return jsonify({'error': 'An error occurred while creating the account.'}), 500
 
 @app.route('/sample', methods=['GET'])
 def get_sample():
