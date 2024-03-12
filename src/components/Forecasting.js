@@ -38,6 +38,11 @@ const Forecasting = () => {
     };
 
     const handleKeyPress = (e) => {
+        // Allow only digits (0-9), backspace/delete, and Enter key
+        const regex = /^[0-9\b]+$/;
+        if (!regex.test(e.key) && e.key !== 'Enter') {
+            e.preventDefault();
+        }
         if (e.key === 'Enter') {
             handleForecast();
         }
