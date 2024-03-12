@@ -45,7 +45,7 @@ const Navbar = ({ onLogout }) => {
                     <Forecasting />
                 </Offcanvas.Body>
             </Offcanvas>
-            {isCollectClicked && <FloatingContainer />}
+            <FloatingContainer isCollectClicked={isCollectClicked} />
         </>
     );
 }
