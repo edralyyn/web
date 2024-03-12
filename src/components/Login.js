@@ -1,8 +1,6 @@
-// Login.js
-
 import React, { useState } from 'react';
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, setShowSignUp }) => { // Ensure setShowSignUp is received as a prop
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -49,7 +47,8 @@ const Login = ({ onLogin }) => {
                     </div>
                 </form>
                 <div className="d-flex m-2 mb-0">
-                <a class="icon-link icon-link-hover" style={{"--bs-link-hover-color-rgb": "25, 135, 84"}} href="#">No account yet? Sign up.</a>
+                    {/* Here we use setShowSignUp from props */}
+                    <a href="#!" onClick={() => setShowSignUp(true)} className="icon-link icon-link-hover" style={{ "--bs-link-hover-color-rgb": "25, 135, 84" }}>No account yet? Sign up.</a>
                 </div>
             </div>
         </div>
