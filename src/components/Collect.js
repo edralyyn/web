@@ -1,11 +1,10 @@
 // Collect.js
 
-const handleCollect = () => {
-    fetch('http://localhost:5000/sample')
+export const handleCollect = () => {
+    return fetch('http://localhost:5000/sample')
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => data.output)
         .catch(error => console.error('Error:', error));
 };
 
 export default handleCollect;
-

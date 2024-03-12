@@ -1,13 +1,26 @@
+//Floating.js
+
 import React, { useRef, useEffect, useState } from 'react';
-import '../App.css'; // Your custom CSS file
+import { handleCollect } from './Collect.js';
+import '../App.css';
 
 function FloatingContainer() {
   const containerRef = useRef(null);
   const [output, setOutput] = useState('');
 
   useEffect(() => {
-    const container = containerRef.current;
+    const fetchData = async () => {
+      try {
+        const data = await handleCollect();
+        setOutput(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
 
+    fetchData();
+
+    const container = containerRef.current;
     let isDragging = false;
     let initialX;
     let initialY;
@@ -54,17 +67,12 @@ function FloatingContainer() {
     };
   }, []);
 
-  useEffect(() => {
-    // Fetch the output from Flask API
-    fetch('http://localhost:5000/sample')
-      .then(response => response.json())
-      .then(data => setOutput(data.output))
-      .catch(error => console.error('Error:', error));
-  }, []);
-
   return (
     <div ref={containerRef} className="floating-container rounded-2">
-      <p>{output}</p>
+      <h5>Topology Table</h5>
+      <div className="floating-container-body">
+        <p>{output}</p>
+      </div>
     </div>
   );
 }
