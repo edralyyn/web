@@ -48,6 +48,9 @@ const Login = ({ onLogin }) => {
                         <button type="submit" className="btn btn-primary">Login</button>
                     </div>
                 </form>
+                <div className="d-flex m-2 mb-0">
+                <a class="icon-link icon-link-hover" style={{"--bs-link-hover-color-rgb": "25, 135, 84"}} href="#">No account yet? Sign up.</a>
+                </div>
             </div>
         </div>
     );
