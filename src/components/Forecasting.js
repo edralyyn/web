@@ -1,5 +1,3 @@
-//Forecasting.js
-
 import React, { useState } from 'react';
 
 const Forecasting = () => {
@@ -39,6 +37,12 @@ const Forecasting = () => {
         });
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleForecast();
+        }
+    };
+
     return (
         <div>
             <div className="mb-3">
@@ -49,16 +53,19 @@ const Forecasting = () => {
                     className="form-control"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
+                    onKeyPress={handleKeyPress}
                 />
             </div>
             <div className="text-start">
                 <button type="button" className="btn btn-primary" onClick={handleForecast}>Forecast</button>
             </div>
+            <div className="container-fluid rounded-2 bg-light" style={{'color':'black'}}>
             {forecastValue !== null && (
                 <div className="mt-3">
                     <p>Forecast Value: {forecastValue}</p>
                 </div>
             )}
+            </div>
         </div>
     );
 }
