@@ -1,42 +1,22 @@
-#signup.py
+# signup.py
 
-import sqlite3
+from models import User  # Import the User model from your models module
+from flask import request, jsonify  # Import Flask's request and jsonify functions
 
 def create_account():
     try:
-        # Connect to the SQLite database
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
+        # Extract username and password from the request data
+        username = request.json.get('username')
+        password = request.json.get('password')
 
-        # Prompt the user to enter a username
-        while True:
-            username = input("Enter a username: ")
-            # Check if the username already exists
-            cursor.execute("SELECT * FROM users WHERE username=?", (username,))
-            existing_user = cursor.fetchone()
-            if existing_user:
-                print("Username already exists. Please choose a different username.")
-            else:
-                break
+        # Check if the username already exists
+        existing_user = User.objects(username=username).first()
+        if existing_user:
+            return jsonify({'error': 'Username already exists. Please choose a different username.'}), 400
 
-        # Prompt the user to enter a password twice
-        while True:
-            password = input("Enter a password: ")
-            confirm_password = input("Confirm your password: ")
-            if password == confirm_password:
-                break
-            else:
-                print("Passwords do not match. Please try again.")
-
-        # Insert the new account into the database
-        cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
-        conn.commit()
-        print("Account created successfully.")
-
-        # Close the database connection
-        conn.close()
-    except sqlite3.Error as e:
-        print("SQLite error:", e)
-
-# Call the create_account function to run it
-create_account()
+        # Create a new user document and save it to the database
+        new_user = User(username=username, password=password)
+        new_user.save()
+        return jsonify({'message': 'Account created successfully.'}), 201
+    except Exception as e:
+        return jsonify({'error': 'An error occurred: {}'.format(e)}), 500

@@ -1,26 +1,15 @@
-import sqlite3
+# login.py
 
 def authenticate(username, password):
+    from models import User  # Import the User model here to avoid circular import
     try:
-        # Connect to the SQLite database
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
-        
-        # Check if the username and password match
-        cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
-        user = cursor.fetchone()
-        
-        if user:
-            print("Authentication successful. Welcome, {}!".format(username))
-        else:
-            print("Incorrect username or password. Please try again.")
-        
-        # Close the database connection
-        conn.close()
-    except sqlite3.Error as e:
-        print("SQLite error:", e)
+        # Query the database for the user with the provided username
+        user = User.objects(username=username).first()
 
-# Example usage:
-username = input("Enter your username: ")
-password = input("Enter your password: ")
-authenticate(username, password)
+        # Check if the user exists and if the password matches
+        if user and user.password == password:
+            return {'message': 'Login successful'}, 200
+        else:
+            return {'error': 'Invalid username or password'}, 401
+    except Exception as e:
+        return {'error': 'An error occurred: {}'.format(e)}, 500
