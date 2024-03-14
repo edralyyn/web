@@ -5,6 +5,8 @@ from flask_cors import CORS
 from flask_mongoengine import MongoEngine
 from login import authenticate
 from signup import create_account
+from samplecollect import SampleCollect
+from sampleforecast import forecast_input
 
 app = Flask(__name__)
 CORS(app)
@@ -28,7 +30,7 @@ def login():
 @app.route('/signup', methods=['POST'])
 def signup():
     return create_account()
-    
+
 @app.route('/sample', methods=['GET'])
 def get_sample():
     output = SampleCollect()
