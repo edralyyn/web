@@ -1,41 +1,40 @@
-import React, { useState } from 'react';
-import axios from 'axios'; // Import Axios for making HTTP requests
+// SignUpForm.js
 
-const SignUpForm = ({ setShowSignUp }) => { // Ensure setShowSignUp is received as a prop
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const SignUpForm = ({ setShowSignUp }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         // Check if passwords match
         if (password !== confirmPassword) {
-            console.log('Passwords do not match');
+            setError('Passwords do not match');
             return;
         }
-    
+
         try {
-            // Send a POST request to the Flask backend to create a new account
             const response = await axios.post('http://localhost:5000/signup', {
                 username: username,
                 password: password
             });
-    
-            // Handle success response
-            console.log(response.data.message); // Log success message
-    
+
+            console.log(response.data.message);
             // Optionally, you can redirect the user to the login page or display a success message
+
         } catch (error) {
-            // Handle error response
             if (error.response && error.response.data && error.response.data.error) {
-                console.error('Error signing up:', error.response.data.error); // Log error message
+                setError(error.response.data.error);
             } else {
-                console.error('An unexpected error occurred:', error); // Log unexpected error
+                setError('An unexpected error occurred');
             }
         }
     }
-    
 
     return (
         <div className='d-flex justify-content-center align-items-center vh-100 bg-dark'>
@@ -54,11 +53,11 @@ const SignUpForm = ({ setShowSignUp }) => { // Ensure setShowSignUp is received 
                         <label htmlFor="confirm-password" className="form-label">Confirm Password:</label>
                         <input type="password" id="confirm-password" className="form-control" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} autoComplete="new-password" />
                     </div>
+                    {error && <div className="text-danger mb-3">{error}</div>}
                     <div className="text-center">
                         <button type="submit" className="btn btn-primary">Sign Up</button>
                     </div>
                 </form>
-                {/* Link to switch back to the login page */}
                 <div className="text-center mt-3">
                     <button type="button" className="btn btn-link" onClick={() => setShowSignUp(false)}>Already have an account? Log in.</button>
                 </div>

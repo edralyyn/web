@@ -1,8 +1,6 @@
 import React from 'react';
-import Navbar from './Navbar';
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, Stage, PresentationControls } from "@react-three/drei";
-import FloatingContainer from './Floating';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Model(props) {
