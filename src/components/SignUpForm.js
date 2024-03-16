@@ -1,5 +1,3 @@
-// SignUpForm.js
-
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -8,11 +6,11 @@ const SignUpForm = ({ setShowSignUp }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if passwords match
         if (password !== confirmPassword) {
             setError('Passwords do not match');
             return;
@@ -24,8 +22,10 @@ const SignUpForm = ({ setShowSignUp }) => {
                 password: password
             });
 
-            console.log(response.data.message);
-            // Optionally, you can redirect the user to the login page or display a success message
+            setSuccessMessage(response.data.message);
+            setUsername('');
+            setPassword('');
+            setConfirmPassword('');
 
         } catch (error) {
             if (error.response && error.response.data && error.response.data.error) {
@@ -40,6 +40,7 @@ const SignUpForm = ({ setShowSignUp }) => {
         <div className='d-flex justify-content-center align-items-center vh-100 bg-dark'>
             <div className="card p-4 mt-3">
                 <h2 className="mb-4">Sign Up</h2>
+                {successMessage && <div className="alert alert-success">{successMessage}</div>} {/* Show success message */}
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="signup-username" className="form-label">Username:</label>
