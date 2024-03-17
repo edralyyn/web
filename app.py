@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 app.config['MONGODB_SETTINGS'] = {
     'db': 'admin',
-    'host': 'mongodb://localhost:27017/admin'
+    'host': 'mongodb+srv://edralyyyyynperaltaa:Lz4cQeePpk1p1h88@cluster.jarpoqa.mongodb.net/'
 }
 
 db = MongoEngine(app)
